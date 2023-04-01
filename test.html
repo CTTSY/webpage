@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Metaverse Quotes</title>
+  </head>
+  <body>
+    <h1>Metaverse Quotes</h1>
+    <ul id="quote-list"></ul>
+    <script>
+      fetch('https://backend.cpsumsu.org/api/metaverse_quotes')
+        .then(response => response.json())
+        .then(data => {
+          const quoteList = document.getElementById('quote-list');
+          const quotes = data.en.slice(0, 3);
+          quotes.forEach(quote => {
+            const listItem = document.createElement('li');
+            const quoteText = document.createElement('p');
+            const authorText = document.createElement('p');
+            quoteText.textContent = quote.quote;
+            authorText.textContent = `- ${quote.author}`;
+            listItem.appendChild(quoteText);
+            listItem.appendChild(authorText);
+            quoteList.appendChild(listItem);
+          });
+        });
+    </script>
+  </body>
+</html>
